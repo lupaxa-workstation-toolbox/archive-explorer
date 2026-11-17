@@ -10,10 +10,7 @@ Archive Explorer reads compressed archives without unpacking them. Listing, sear
 streaming, and comparing never modify the source file, and a command decompresses a member only
 when it needs those bytes.
 
-It works offline. A configuration file is optional.
-
-The full command reference, JSON schema, and format matrix are published at
-<https://archive-explorer.thelupaxaproject.org/>. The same pages are in `mkdocs/`.
+It works offline. A configuration file is optional. This README is the usage guide and the developer guide.
 
 ## What it Does
 
@@ -282,7 +279,7 @@ make install-dev
 ```
 
 `make init` clones [makefile-skills](https://github.com/lupaxa-developers-toolbox/makefile-skills) into `.makefiles/`. That directory is gitignored. `make install-dev` installs this project with the `dev`
-extra: pytest, Ruff, mypy, Hatch, bump-my-version, and the MkDocs pins.
+extra: pytest, Ruff, mypy, Hatch, and bump-my-version.
 
 Run the tool from the checkout with `archive-explorer`, or with `python -m lupaxa.archive_explorer`. The console script is declared as `archive-explorer = lupaxa.archive_explorer.cli:main`.
 
@@ -300,16 +297,6 @@ format check. `make format` rewrites formatting. Tests build synthetic archives 
 and do not use the network.
 
 Coverage is part of the pytest options in `pyproject.toml`. `make python-check-all` adds the coverage report and `pip-audit`.
-
-### Documentation
-
-```bash
-make mkdocs-serve
-make mkdocs-build
-```
-
-`make mkdocs-serve` serves the site at `127.0.0.1:8000`. Override the port with `make mkdocs-serve MKDOCS_PORT=8001`. `make mkdocs-build` writes the static site and fails on
-warnings. The published site is <https://archive-explorer.thelupaxaproject.org/>.
 
 ### Version
 

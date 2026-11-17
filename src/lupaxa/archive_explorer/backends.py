@@ -228,7 +228,7 @@ class ZipSession(ArchiveSession):
         try:
             with self._zip.open(info, pwd=self._pwd()) as handle:
                 return handle.read().decode("utf-8", errors="replace")
-        except (RuntimeError, zipfile.BadZipFile, NotImplementedError):
+        except (RuntimeError, zipfile.BadZipFile):
             return None
 
     def open_member(
@@ -255,10 +255,10 @@ class ZipSession(ArchiveSession):
             budget.check_declared(min(member.size or stop_at, stop_at))
         try:
             raw = self._zip.open(info, pwd=self._pwd())
-        except RuntimeError as exc:
-            _raise_zip_password(exc, bool(self._password))
         except NotImplementedError as exc:
             raise AppError(f"unsupported zip feature: {exc}", ExitCode.UNSUPPORTED) from exc
+        except RuntimeError as exc:
+            _raise_zip_password(exc, bool(self._password))
         return CountingReader(raw, budget, stop_at)
 
     def _pwd(self) -> bytes | None:
